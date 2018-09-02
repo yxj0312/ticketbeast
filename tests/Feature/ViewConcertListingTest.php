@@ -16,7 +16,7 @@ class ViewConcertListingTest extends TestCase
     {
         // Arrange
         // Create a concert
-        $concert = Concert::create([
+        $concert = factory(Concert::class)->state('published')->create([
             'title' => 'The Red Chord',
             'subtitle' => 'with Animosity and lethargy',
             'date' => Carbon::parse('December 13, 2016 8:00pm'),
@@ -27,7 +27,6 @@ class ViewConcertListingTest extends TestCase
             'state' => 'ON',
             'zip' => '17916',
             'additional_information' => 'For tickets, call (555) 555-5555.',
-            'published_at' => Carbon::parse('-1 week'),
         ]);
 
         // Act
@@ -54,9 +53,7 @@ class ViewConcertListingTest extends TestCase
 
         $this->withexceptionHandling();
 
-        $concert = factory(Concert::class)->create([
-            'published_at' => null
-        ]);
+        $concert = factory(Concert::class)->state('unpublished')->create();
 
         $response = $this->get('/concerts/'.$concert->id)->assertStatus(404);
     }
