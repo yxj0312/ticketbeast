@@ -63,6 +63,7 @@ class ConcertTest extends TestCase
     function can_order_concert_tickets()
     {
         $concert = factory(Concert::class)->create();
+        $concert->addTickets(3);
 
         $order = $concert->orderTickets('jane@example.com', 3);
 
@@ -88,6 +89,12 @@ class ConcertTest extends TestCase
         $concert->orderTickets('jane@example.com', 30);
 
         $this->assertEquals(20, $concert->ticketsRemaining());
+    }
 
+    /** @test */
+    function trying_to_purchase_more_tickets_than_remain_throws_an_exception()
+    {
+        $concert = factory(Concert::class)->create();
+        $concert->addTickets(10);        
     }
 }
