@@ -9,6 +9,7 @@ use App\Billing\FakePaymentGateway;
 use Illuminate\Foundation\Testing\WithFaker;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Order;
 
 class PurchaseTicketsTest extends TestCase
 {
@@ -93,7 +94,7 @@ class PurchaseTicketsTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $order = $concert->fresh()->orders()->where('email', 'john@example.com')->first();
+        $order = $concert->orders()->where('email', 'john@example.com')->first();
         $this->assertNull($order);
     }
 
