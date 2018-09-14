@@ -39,8 +39,8 @@ class PurchaseTicketsTest extends TestCase
         // Arrange
         // Create a concert
         $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250]);
-        $concert->addtickets(3);
-
+        $concert->addTickets(3);
+        
         // Act
         // Purchase concert tickets
         $response = $this->orderTickets($concert, [
@@ -67,8 +67,8 @@ class PurchaseTicketsTest extends TestCase
         $this->withExceptionHandling();
 
         $concert = factory(Concert::class)->states('unpublished')->create();
-        $concert->addtickets(3);
-
+        $concert->addTickets(3);
+        
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
             'ticket_quantity' => 3,
@@ -84,7 +84,7 @@ class PurchaseTicketsTest extends TestCase
     function an_order_is_not_created_if_payment_fails()
     {
         $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250]);
-        $concert->addtickets(3);
+        $concert->addTickets(3);
 
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -93,7 +93,7 @@ class PurchaseTicketsTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $order = $concert->orders()->where('email', 'john@exmample.com')->first();
+        $order = $concert->fresh()->orders()->where('email', 'john@example.com')->first();
         $this->assertNull($order);
     }
 
@@ -102,7 +102,7 @@ class PurchaseTicketsTest extends TestCase
     {
         $concert = factory(Concert::class)->state('published')->create();
         $concert->addTickets(50);
-
+        
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
             'ticket_quantity' => 51,
