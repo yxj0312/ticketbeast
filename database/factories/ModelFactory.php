@@ -1,7 +1,7 @@
 <?php
 
-use Faker\Generator as Faker;
 use Carbon\Carbon;
+use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Concert::class, function(Faker $faker){
+$factory->define(App\Concert::class, function (Faker $faker) {
     return [
         'title' => 'Example Band',
         'subtitle' => 'with The Fake openers',
@@ -34,11 +34,11 @@ $factory->define(App\Concert::class, function(Faker $faker){
         'city' => 'Fakeville',
         'state' => 'ON',
         'zip' => '90210',
-        'additional_information' => 'Some sample addtional information.'
+        'additional_information' => 'Some sample addtional information.',
     ];
 });
 
-$factory->state(App\Concert::class, 'published', function($faker){
+$factory->state(App\Concert::class, 'published', function ($faker) {
     return [
         'published_at' => Carbon::parse('-1 week'),
     ];

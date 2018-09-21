@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Concert;
-use Illuminate\Http\Request;
 
 class ConcertsController extends Controller
 {

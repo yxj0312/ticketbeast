@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Concert;
 use Illuminate\Http\Request;
 use App\Billing\PaymentGateway;
@@ -12,13 +14,13 @@ class ConcertOrdersController extends Controller
 
     public function __construct(PaymentGateway $paymentGateway)
     {
-        $this->paymentGateway = $paymentGateway;       
+        $this->paymentGateway = $paymentGateway;
     }
-    
+
     public function store($concertId)
     {
         $concert = Concert::published()->findOrFail($concertId);
-        
+
         $this->validate(request(), [
             'email' => ['required', 'email'],
             'ticket_quantity' => ['required', 'integer', 'min:1'],
@@ -36,7 +38,7 @@ class ConcertOrdersController extends Controller
 
             return response()->json($order, 201);
         } catch (PaymentFailedException $e) {
-            return response()-> json([], 422);
+            return response()->json([], 422);
         } catch (NotEnoughTicketsException $e) {
             return response()->json([], 422);
         }
