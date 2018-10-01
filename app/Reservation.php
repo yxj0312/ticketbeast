@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Reservation 
+class Reservation
 {
     private $tickets;
 
@@ -10,7 +10,7 @@ class Reservation
     {
         $this->tickets = $tickets;
     }
-    
+
     public function totalCost()
     {
         return $this->tickets->sum('price');
