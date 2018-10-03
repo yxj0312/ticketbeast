@@ -39,8 +39,10 @@ class FakePaymentGatewayTest extends TestCase
         $paymentGateway = new FakePaymentGateway;
         $callbackRan = false;
 
+        // with that __invoke method, we can pass the paymentGateway here,
         $paymentGateway->beforeFirstCharge(function ($paymentGateway) use (&$callbackRan){
             $callbackRan = true;
+            // so we can use it to assert the totalCharges
             $this->assertEquals(0, $paymentGateway->totalCharges());
         });
 
