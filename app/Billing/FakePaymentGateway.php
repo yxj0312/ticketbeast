@@ -21,7 +21,7 @@ class FakePaymentGateway implements PaymentGateway
     {
         // Check is there a callback there?
         // if so, then we have to run this callback if it set, before we do any charging
-        if($this->beforeFirstChargeCallback !== null) {
+        if ($this->beforeFirstChargeCallback !== null) {
             // invoke that callback to pass paymentGateway itself
             // so that callback will run before the charge happens
             $this->beforeFirstChargeCallback->__invoke($this);
