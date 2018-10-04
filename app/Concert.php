@@ -61,7 +61,7 @@ class Concert extends Model
     {
         return $this->findTickets($quantity);
     }
-    
+
     public function findTickets($quantity)
     {
         $tickets = $this->tickets()->available()->take($quantity)->get();
