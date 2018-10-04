@@ -37,17 +37,18 @@ class FakePaymentGatewayTest extends TestCase
     function running_a_hook_before_the_first_charge()
     {
         $paymentGateway = new FakePaymentGateway;
-        $callbackRan = false;
+        $timesCallbackRan = 0;
 
         // with that __invoke method, we can pass the paymentGateway here,
-        $paymentGateway->beforeFirstCharge(function ($paymentGateway) use (&$callbackRan){
-            $callbackRan = true;
+        $paymentGateway->beforeFirstCharge(function ($paymentGateway) use (&$timesCallbackRan){
+            $timesCallbackRan++;
+            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
             // so we can use it to assert the totalCharges
-            $this->assertEquals(0, $paymentGateway->totalCharges());
+            $this->assertEquals(2500, $paymentGateway->totalCharges());
         });
 
         $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
-        $this->assertTrue($callbackRan);
-        $this->assertEquals(2500, $paymentGateway->totalCharges());
+        $this->assertEquals(1, $timesCallbackRan);
+        $this->assertEquals(5000, $paymentGateway->totalCharges());
     }
 }
