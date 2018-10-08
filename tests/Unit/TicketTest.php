@@ -7,6 +7,7 @@ use App\Concert;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Carbon\Carbon;
 
 class TicketTest extends TestCase
 {
@@ -26,14 +27,11 @@ class TicketTest extends TestCase
     /** @test */
     function a_ticket_can_be_released()
     {
-        $concert = factory(Concert::class)->create();
-        $concert->addTickets(1);
-        $order = $concert->orderTickets('jane@example.com',1);
-        $ticket = $order->tickets()->first();
-        $this->assertEquals($order->id, $ticket->order_id);
+        $ticket = factory(Ticket::class)->state('reserved')->create();
+        $this->assertNotNull($ticket->reserved_at);
 
         $ticket->release();
 
-        $this->assertNull($ticket->fresh()->order_id);
+        $this->assertNull($ticket->fresh()->reserved_at);
     }
 }
