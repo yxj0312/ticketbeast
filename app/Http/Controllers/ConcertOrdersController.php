@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Concert;
-use App\Reservation;
 use Illuminate\Http\Request;
 use App\Billing\PaymentGateway;
 use App\Billing\PaymentFailedException;
