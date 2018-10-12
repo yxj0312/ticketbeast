@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Order;
 use App\Concert;
 use Tests\TestCase;
+use App\Reservation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -24,6 +25,16 @@ class OrderTest extends TestCase
         $this->assertEquals(3, $order->ticketQuantity());
         $this->assertEquals(3600, $order->amount);
         $this->assertEquals(2, $concert->ticketsRemaining());
+    }
+
+    /** @test */
+    function creating_an_order_from_a_reservation()
+    {
+        $reservation = new Reservation($tickets, $email);
+
+        $order = Order::fromReservation($reservation);
+
+        $this->assertEquals('john@example.com', $order->email);
     }
 
     /** @test */
