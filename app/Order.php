@@ -26,11 +26,11 @@ class Order extends Model
     {
         $order = self::create([
             'email' => $reservation->email(),
-            'amount' => $reservation->totalCost() ,
+            'amount' => $reservation->totalCost(),
         ]);
 
         $order->tickets()->saveMany($reservation->tickets());
-        
+
         return $order;
     }
 
