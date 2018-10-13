@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Order;
+use App\Ticket;
 use App\Concert;
 use Tests\TestCase;
 use App\Reservation;
@@ -30,11 +31,15 @@ class OrderTest extends TestCase
     /** @test */
     function creating_an_order_from_a_reservation()
     {
-        $reservation = new Reservation($tickets, $email);
+        $concert = factory(Concert::class)->create(['ticket_price' => 1200]);
+        $tickets = factory(Ticket::class, 3)->create(['concert_id' => $concert->id]);
+        $reservation = new Reservation($tickets, 'john@example.com');
 
         $order = Order::fromReservation($reservation);
 
         $this->assertEquals('john@example.com', $order->email);
+        $this->assertEquals(3, $order->ticketQuantity());
+        $this->assertEquals(3600, $order->amount);
     }
 
     /** @test */

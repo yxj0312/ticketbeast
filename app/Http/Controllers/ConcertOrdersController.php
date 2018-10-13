@@ -38,10 +38,12 @@ class ConcertOrdersController extends Controller
             $order = Order::forTickets($reservation->tickets(), $reservation->email(), $reservation->totalCost());
 
             return response()->json($order, 201);
+
         } catch (PaymentFailedException $e) {
             $reservation->cancel();
 
             return response()->json([], 422);
+            
         } catch (NotEnoughTicketsException $e) {
             return response()->json([], 422);
         }
