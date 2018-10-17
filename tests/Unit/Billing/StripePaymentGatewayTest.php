@@ -3,8 +3,7 @@
 namespace Tests\Unit\Billing;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Billing\StripePaymentGateway;
 
 class StripePaymentGatewayTest extends TestCase
 {
@@ -12,7 +11,7 @@ class StripePaymentGatewayTest extends TestCase
     function charge_with_a_valid_payment_token_are_successful()
     {
         // Create a new StripePaymentGateway
-        $paymentGateway = new StripePaymentGateway;
+        $paymentGateway = new StripePaymentGateway(config('services.stripe.secret'));
 
         $token = \Stripe\Token::create([
             "card" => [
