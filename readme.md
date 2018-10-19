@@ -54,3 +54,30 @@ $this->post('/posts', [
 2. Reliable, don't break for unimportant reasons
 3. Fast, so I run them often
 4. Simple, as few tools as possible, easy to recreate test environment
+
+
+
+# Mock the Stripe API Client vs. Integration Test Aganist Stripe
+## Option  1: Mock the Stripe API Client
+
+## Pros
+
+- Tests are fast
+- Tests can run without internet access
+
+## Cons
+
+- Tests will pass even if we aren't using Stripe's SDK correctly
+- Tests can't be used to confirm our integration still works if Stripe makes an update to their SDK or API
+- Tests are coupled to a specific implementation; can't refactor to use Guzzle or another Stripe library
+
+## Option 2: Integration Test Aganist Stripe
+
+## Pros
+- Tests will fail if we use Stripe's libray incorrectly
+- Tests will fail if Stripe makes a breaking change to their SDK or API that would require us to change our code
+- Tests are still valid even if we change our implementation to use Guzzle or an unoffical Stripe package
+
+## Cons
+- Tests are slow
+- Tests can't run without internet access
