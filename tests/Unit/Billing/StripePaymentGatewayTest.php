@@ -5,8 +5,12 @@ namespace Tests\Unit\Billing;
 use Tests\TestCase;
 use App\Billing\StripePaymentGateway;
 
+/**
+ * @group integration
+ */
 class StripePaymentGatewayTest extends TestCase
 {
+    // vendor\bin\phpunit --exclude-group integration
     private function lastCharge()
     {
         return \Stripe\Charge::all(
