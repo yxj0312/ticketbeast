@@ -30,12 +30,12 @@ class StripePaymentGateway implements PaymentGateway
     public function getValidTestToken()
     {
         return \Stripe\Token::create([
-            "card" => [
-                "number" => "4242424242424242",
-                "exp_month" => 12,
-                "exp_year" => date('Y') + 1,
-                "cvc" => "123",
-            ]
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 12,
+                'exp_year' => date('Y') + 1,
+                'cvc' => '123',
+            ],
         ], ['api_key' => $this->apiKey])->id;
     }
 }
