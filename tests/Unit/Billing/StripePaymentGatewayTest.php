@@ -12,6 +12,13 @@ use App\Billing\PaymentFailedException;
 class StripePaymentGatewayTest extends TestCase
 {
     // vendor\bin\phpunit --exclude-group integration
+    
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->lastCharge = $this->lastCharge();
+    }
+
     private function lastCharge()
     {
         return \Stripe\Charge::all(
@@ -25,17 +32,12 @@ class StripePaymentGatewayTest extends TestCase
         return \Stripe\Charge::all(
             [
                 "limit" => 1,
-                "ending_before" => $this->lastCharge->id,
+                "ending_before" => $this->lastCharge->id ? $this->lastCharge->id: null,
             ],
             ['api_key' => config('services.stripe.secret')]
         )['data'];
     }
 
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->lastCharge = $this->lastCharge();
-    }
 
     protected function getPaymentGateway()
     {
