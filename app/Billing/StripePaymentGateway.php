@@ -43,13 +43,14 @@ class StripePaymentGateway implements PaymentGateway
     {
         $latestCharge = $this->lastCharge();
         $callback($this);
+
         return $this->newChargesSince($latestCharge)->pluck('amount');
     }
 
     private function lastCharge()
     {
         return array_first(\Stripe\Charge::all(
-            ["limit" => 1],
+            ['limit' => 1],
             ['api_key' => config('services.stripe.secret')]
         )['data'][0]);
     }
@@ -58,8 +59,8 @@ class StripePaymentGateway implements PaymentGateway
     {
         $newCharges = \Stripe\Charge::all(
             [
-                "limit" => 1,
-                "ending_before" => $charge ? $charge->id: null,
+                'limit' => 1,
+                'ending_before' => $charge ? $charge->id : null,
             ],
             ['api_key' => $this->apiKey]
         )['data'];
