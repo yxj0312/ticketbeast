@@ -11,6 +11,7 @@ use App\Billing\PaymentFailedException;
  */
 class StripePaymentGatewayTest extends TestCase
 {
+    use \PaymentGatewayContractTests;
     // vendor\bin\phpunit --exclude-group integration
     
     protected function setUp()
@@ -21,17 +22,16 @@ class StripePaymentGatewayTest extends TestCase
 
     private function lastCharge()
     {
-        return \Stripe\Charge::all(
+        return array_first(\Stripe\Charge::all(
             ["limit" => 1],
             ['api_key' => config('services.stripe.secret')]
-        )['data'][0]; 
+        )['data']); 
     }
 
     private function newCharges()
     {
         return \Stripe\Charge::all(
             [
-                "limit" => 1,
                 "ending_before" => $this->lastCharge->id ? $this->lastCharge->id: null,
             ],
             ['api_key' => config('services.stripe.secret')]
@@ -42,23 +42,6 @@ class StripePaymentGatewayTest extends TestCase
     protected function getPaymentGateway()
     {
         return new StripePaymentGateway(config('services.stripe.secret'));
-    }
-
-    /** @test */
-    function charge_with_a_valid_payment_token_are_successful()
-    {
-        // Create a new StripePaymentGateway
-        $paymentGateway = $this->getPaymentGateway();
-
-        // Creata a new charge for some amount using a valid token
-        // $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
-        $newCharges = $paymentGateway->newChargesDuring(function ($paymentGateway){
-            $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
-        });
-
-        // Verify that the charge was completed successfully
-        $this->assertCount(1, $newCharges);
-        $this->assertEquals(2500, $newCharges->sum());
     }
 
     /** @test */
@@ -73,5 +56,17 @@ class StripePaymentGatewayTest extends TestCase
         }
 
         $this->fail("Charging with an invalid payment token did not throw a PaymentFailedException.");
+    }
+
+    private function validToken()
+    {
+        return \Stripe\Token::create([
+            "card" => [
+                "number" => "4242424242424242",
+                "exp_month" => 1,
+                "exp_year" => date('Y') + 1,
+                "cvc" => "123"
+            ]
+        ], ['api_key' => config('services.stripe.secret')])->id;
     }
 }

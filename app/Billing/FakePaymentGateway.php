@@ -44,7 +44,7 @@ class FakePaymentGateway implements PaymentGateway
         $chargeFrom = $this->charges->count();
         $callback($this);
 
-        return $this->charges->slice($chargeFrom)->values();
+        return $this->charges->slice($chargeFrom)->reverse()->values();
     }
 
     public function totalCharges()
