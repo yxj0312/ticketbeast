@@ -16,10 +16,13 @@ class ViewOrderTest extends TestCase
     /** @test */
     function user_can_view_their_order_confirmation()
     {
+        $this->withoutExceptionHandling();
         // Create an concert
         $concert = factory(Concert::class)->create(); 
         // Create an Order
-        $order = factory(Order::class)->create(); 
+        $order = factory(Order::class)->create([
+            'confirmation_number' => 'ORDERCONFIRMATION1234'
+        ]); 
         // Create a ticket
         $ticket = factory(Ticket::class)->create([
             'concert_id' => $concert->id,
@@ -27,6 +30,9 @@ class ViewOrderTest extends TestCase
         ]);
 
         // Visit the order confirmation page
-        $this->get('/orders/{$order->id}');
+        $response = $this->get('/orders/ORDERCONFIRMATION1234');
+
+        $response->assertStatus(200);
+        // Assert we see the correct order details
     }
 }
