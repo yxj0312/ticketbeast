@@ -44,6 +44,8 @@ class PurchaseTicketsTest extends TestCase
         // Create a concert
         $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250])->addTickets(3);
         
+        $orderConfirmationNumberGenerator->generate();
+
         // Act
         // Purchase concert tickets
         $response = $this->orderTickets($concert, [
@@ -56,6 +58,7 @@ class PurchaseTicketsTest extends TestCase
         $response->assertStatus(201);
 
         $response->assertJson([
+            'confirmation_number' => 'AHQ8VVDT58CKQDZPLQS4XW88',
             'email' => 'john@example.com',
             'ticket_quantity' => 3,
             'amount' => 9750,
