@@ -26,6 +26,18 @@ trait PaymentGatewayContractTests
     }
 
     /** @test */
+    function can_get_details_about_a_successful_charge()
+    {
+        // vendor\bin\phpunit tests\Unit\Billing\FakePaymentGatewayTest.php --filter=details
+        $paymentGateway = $this->getPaymentGateway();
+
+        $charge = $paymentGateway->charge(2500, $paymentGateway->getValidTestToken('0000000000004242'));
+
+        $this->assertEquals('4242', $charge->cardLastFour());    
+        $this->assertEquals(2500, $charge->amount());    
+    }
+
+    /** @test */
     function charges_with_an_invalid_payment_token_fail()
     {
         $paymentGateway = $this->getPaymentGateway();
