@@ -38,13 +38,13 @@ class FakePaymentGateway implements PaymentGateway
         }
 
         // then the rest of the charge stuffs will be excuted as expected
-        if (!$this->tokens->has($token)) {
+        if (! $this->tokens->has($token)) {
             throw new PaymentFailedException;
         }
-        
+
         return $this->charges[] = new Charge([
             'amount' => $amount,
-            'card_last_four' => substr($this->tokens[$token], -4),  
+            'card_last_four' => substr($this->tokens[$token], -4),
         ]);
     }
 
