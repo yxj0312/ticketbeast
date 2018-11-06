@@ -58,7 +58,7 @@ class FakePaymentGateway implements PaymentGateway
 
     public function totalCharges()
     {
-        return $this->charges->sum();
+        return $this->charges->map->amount()->sum();
     }
 
     // takes a callback and store that callback in a property 'beforeFirstChargeCallback' (initalize to null)
