@@ -7,7 +7,7 @@ use Stripe\Error\InvalidRequest;
 class StripePaymentGateway implements PaymentGateway
 {
     const TEST_CARD_NUMBER = '4242424242424242';
-    
+
     private $apiKey;
 
     public function __construct($apiKey)
@@ -26,7 +26,7 @@ class StripePaymentGateway implements PaymentGateway
 
             return new Charge([
                 'amount' => $stripeCharge['amount'],
-                'card_last_four' => $stripeCharge['source']['last4']
+                'card_last_four' => $stripeCharge['source']['last4'],
             ]);
         } catch (InvalidRequest $e) {
             throw new PaymentFailedException;
@@ -53,7 +53,7 @@ class StripePaymentGateway implements PaymentGateway
         return $this->newChargesSince($latestCharge)->map(function ($stripeCharge) {
             return new Charge([
                 'amount' => $stripeCharge['amount'],
-                'card_last_four' => $stripeCharge['source']['last4']
+                'card_last_four' => $stripeCharge['source']['last4'],
             ]);
         });
     }
