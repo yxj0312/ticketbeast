@@ -15,7 +15,7 @@ class Order extends Model
             'confirmation_number' => OrderConfirmationNumber::generate(),
             'email' => $email,
             'amount' => $charge->amount(),
-            'card_last_four' => $charge->cardLastFour()
+            'card_last_four' => $charge->cardLastFour(),
         ]);
 
         foreach ($tickets as $ticket) {
