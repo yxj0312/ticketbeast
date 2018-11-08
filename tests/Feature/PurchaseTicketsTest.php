@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Order;
+use App\Facades\OrderConfirmationNumber;
 
 class PurchaseTicketsTest extends TestCase
 {
@@ -46,12 +47,9 @@ class PurchaseTicketsTest extends TestCase
         // Create a concert
         $this->withExceptionHandling();
 
-        $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250])->addTickets(3);
+        OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
                 
-        $orderConfirmationNumberGenerator = \Mockery::mock(OrderConfirmationNumberGenerator::class, [
-            'generate' => 'ORDERCONFIRMATION1234',
-        ]);
-        $this->app->instance(OrderConfirmationNumberGenerator::class, $orderConfirmationNumberGenerator);
+        $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250])->addTickets(3);
 
         // Act
         // Purchase concert tickets
@@ -67,8 +65,12 @@ class PurchaseTicketsTest extends TestCase
         $response->assertJson([
             'confirmation_number' => 'ORDERCONFIRMATION1234',
             'email' => 'john@example.com',
-            'ticket_quantity' => 3,
             'amount' => 9750,
+            'tickets' => [
+                ['code' => 'TICKETCODE1'],
+                ['code' => 'TICKETCODE2'],
+                ['code' => 'TICKETCODE3'],
+            ]
         ]);
 
         // Make sure the customer was changed the correct amount
