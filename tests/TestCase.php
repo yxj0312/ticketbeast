@@ -17,5 +17,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         Schema::enableForeignKeyConstraints();
+
+        \Mockery::getConfiguration()->allowMockingNonExistentMethods(false);
     }
 }
