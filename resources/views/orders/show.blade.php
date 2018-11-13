@@ -66,9 +66,8 @@
                         </div>
                     </div>
                     <div class="card-section flex-baseline flex-spaced">
-                        <p class="text-lg">{{ $ticket->code }}}</p>
-                        <p>{{ $order->email }}
-                            <</p>
+                        <p class="text-lg">{{ $ticket->code }}</p>
+                        <p>{{ $order->email }}</p>
                     </div>
                 </div>
                 @endforeach
