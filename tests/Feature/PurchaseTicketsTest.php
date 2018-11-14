@@ -9,6 +9,8 @@ use App\Facades\TicketCode;
 use App\Billing\PaymentGateway;
 
 use App\Billing\FakePaymentGateway;
+use App\Mail\OrderConfirmationEmail;
+use Illuminate\Support\Facades\Mail;
 use App\Facades\OrderConfirmationNumber;
 use App\OrderConfirmationNumberGenerator;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -44,8 +46,12 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function customer_can_purchase_tickets_to_a_published_concert()
     {
+        $this->withOutExceptionHandling();
+
         // Arrange
         // Create a concert
+        Mail::fake();
+
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
                 
@@ -79,12 +85,14 @@ class PurchaseTicketsTest extends TestCase
         // Make sure that an order exists for this customer        
         $this->assertTrue($concert->hasOrderFor('john@example.com'));
         $this->assertEquals(3, $concert->ordersFor('john@example.com')->first()->ticketQuantity());
+
+        Mail::assertSent(OrderConfirmationEmail::class);
     }
 
     /** @test */
     function cannot_purchase_tickets_to_an_unpublished_concert()
     {
-        $this->withExceptionHandling();
+        $this->withOutExceptionHandling();
 
         $concert = factory(Concert::class)->states('unpublished')->create()->addTickets(3);
         

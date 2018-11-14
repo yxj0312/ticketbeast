@@ -98,3 +98,7 @@ $this->post('/posts', [
 ```
 
 and don't forget to use composer dump-autoload
+
+# Why not use Mailtrap to test mails (Chapter 14 Ep 1 - Using a Fake to Intercept Email) ?
+
+- It makes feature tests depending on network calls to some externe servers, and that's something we try to aviod.
