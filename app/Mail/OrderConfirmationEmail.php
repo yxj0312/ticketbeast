@@ -8,6 +8,8 @@ use Illuminate\Queue\SerializesModels;
 
 class OrderConfirmationEmail extends Mailable
 {
+    public $order;
+
     use Queueable, SerializesModels;
 
     /**
@@ -15,9 +17,9 @@ class OrderConfirmationEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
