@@ -27,6 +27,7 @@ class LoginController extends Controller
     {
         Auth::logout();
         session()->regenerate();
+
         return redirect('/login');
     }
 }
