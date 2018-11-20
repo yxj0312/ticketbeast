@@ -19,3 +19,4 @@ Route::post('/login', 'Auth\LoginController@login')->name('auth.login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('auth.logout');
 
 Route::get('/backstage/concerts/new', 'Backstage\ConcertsController@create')->middleware('auth');
+Route::post('/backstage/concerts', 'Backstage\ConcertsController@store')->middleware('auth');
