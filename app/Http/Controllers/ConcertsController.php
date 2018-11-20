@@ -12,8 +12,4 @@ class ConcertsController extends Controller
 
         return view('concerts.show', ['concert' => $concert]);
     }
-
-    public function store()
-    {
-    }
 }
