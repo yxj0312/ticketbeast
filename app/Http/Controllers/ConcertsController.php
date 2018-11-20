@@ -15,6 +15,5 @@ class ConcertsController extends Controller
 
     public function store()
     {
-        
     }
 }
