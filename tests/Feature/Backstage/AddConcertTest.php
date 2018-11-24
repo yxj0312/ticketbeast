@@ -76,6 +76,7 @@ class AddConcertTest extends TestCase
             $response->assertRedirect("/concerts/{$concert->id}");
 
             $this->assertTrue($concert->user->is($user));
+            $this->assertTrue($concert->isPublished());
 
             $this->assertEquals('No Warning', $concert->title);
             $this->assertEquals('with Cruel Hand and Backtrack', $concert->subtitle);
@@ -149,7 +150,7 @@ class AddConcertTest extends TestCase
         tap(Concert::first(), function ($concert) use ($response, $user) {
             $response->assertStatus(302);
             $response->assertRedirect("/concerts/{$concert->id}");
-            
+
             $this->assertTrue($concert->user->is($user));
             $this->assertNull($concert->additional_information);
         });
