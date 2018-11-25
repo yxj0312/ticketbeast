@@ -25,6 +25,7 @@ Route::group(
     'namespace' => 'Backstage',
     ],
     function () {
+        Route::get('/concerts', 'ConcertsController@index');
         Route::get('/concerts/new', 'ConcertsController@create');
         Route::post('/concerts', 'ConcertsController@store');
     }
