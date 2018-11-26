@@ -5,12 +5,23 @@ namespace Tests\Feature\Backstage;
 use App\User;
 use App\Concert;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestResponse;
 
 class ViewConcertListTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        TestResponse::macro('data', function ($key) {
+            // $this refers to this response not this class
+            return $this->original->getData()[$key];
+        });
+    }
+    
 
     /** @test */
     function guests_cannot_view_a_promoters_concert_list()
@@ -35,9 +46,10 @@ class ViewConcertListTest extends TestCase
         $response = $this->actingAs($user)->get('/backstage/concerts');
 
         $response->assertStatus(200);
-        $this->assertTrue($response->original->getData()['concerts']->contains($concertA));
-        $this->assertTrue($response->original->getData()['concerts']->contains($concertB));
-        $this->assertTrue($response->original->getData()['concerts']->contains($concertD));
-        $this->assertFalse($response->original->getData()['concerts']->contains($concertC));
+        $this->assertTrue($response->data('concerts')->contains($concertA));
+        $this->assertTrue($response->data('concerts')->contains($concertA));
+        $this->assertTrue($response->data('concerts')->contains($concertB));
+        $this->assertTrue($response->data('concerts')->contains($concertD));
+        $this->assertFalse($response->data('concerts')->contains($concertC));
     }
 }
