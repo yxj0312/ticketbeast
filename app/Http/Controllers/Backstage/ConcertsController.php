@@ -61,7 +61,7 @@ class ConcertsController extends Controller
         abort_if($concert->isPublished(), 403);
 
         return view('backstage.concerts.edit', [
-            'concert' => $concert
+            'concert' => $concert,
         ]);
     }
 }
