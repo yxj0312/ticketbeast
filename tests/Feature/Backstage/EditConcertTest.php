@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Backstage;
 
+use App\User;
+use App\Concert;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
