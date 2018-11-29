@@ -32,4 +32,3 @@ Route::group(
         Route::patch('/concerts/{id}', 'ConcertsController@update')->name('backstage.concerts.update');
     }
 );
-
