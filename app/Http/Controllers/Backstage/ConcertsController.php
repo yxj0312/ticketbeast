@@ -48,6 +48,7 @@ class ConcertsController extends Controller
             'state' => request('state'),
             'zip' => request('zip'),
             'ticket_price' => request('ticket_price') * 100,
+            'ticket_quantity' => (int)request('ticket_quantity'),
         ])->addTickets(request('ticket_quantity'));
 
         $concert->publish();
@@ -68,6 +69,9 @@ class ConcertsController extends Controller
 
     public function update($id)
     {
+        $concert = Auth::user()->concerts()->findOrFail($id);
+        abort_if($concert->isPublished(), 403);
+
         $this->validate(request(), [
             'title' => ['required'],
             'date' => ['required', 'date'],
@@ -80,9 +84,6 @@ class ConcertsController extends Controller
             'ticket_price' => ['required', 'numeric', 'min:5'],
             'ticket_quantity' => ['required', 'integer', 'min:1'],
         ]);
-        $concert = Auth::user()->concerts()->findOrFail($id);
-
-        abort_if($concert->isPublished(), 403);
 
         $concert->update([
             'title' => request('title'),
