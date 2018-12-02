@@ -34,7 +34,7 @@ $factory->define(App\Concert::class, function (Faker $faker) {
         'venue' => 'The Example Theatre',
         'venue_address' => '123 Example Lane',
         'city' => 'Fakeville',
-        'state' => 'ON', 
+        'state' => 'ON',
         'zip' => '90210',
         'ticket_price' => 2000,
         'ticket_quantity' => 5,
