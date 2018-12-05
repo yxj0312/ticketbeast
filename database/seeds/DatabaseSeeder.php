@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'zip' => '17916',
             'date' => Carbon::parse('2017-09-13 8:00pm'),
             'ticket_price' => 3250,
-            'ticket_quantity' => 10
+            'ticket_quantity' => 10,
         ]);
 
         ConcertFactory::createPublished([
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             'zip' => '19276',
             'date' => Carbon::parse('2017-10-05 7:00pm'),
             'ticket_price' => 5500,
-            'ticket_quantity' => 10
+            'ticket_quantity' => 10,
         ]);
     }
 }
