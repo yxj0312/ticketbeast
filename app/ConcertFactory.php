@@ -1,7 +1,6 @@
 <?php
-namespace App;
 
-use App\Concert;
+namespace App;
 
 class ConcertFactory
 {
@@ -9,6 +8,7 @@ class ConcertFactory
     {
         $concert = factory(Concert::class)->create($overrides);
         $concert->publish();
+
         return $concert;
     }
 }
