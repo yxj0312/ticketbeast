@@ -5,16 +5,15 @@ namespace Tests\Feature;
 use App\Order;
 use App\Concert;
 use Tests\TestCase;
+use App\ConcertFactory;
 use App\Facades\TicketCode;
 use App\Billing\PaymentGateway;
-
 use App\Billing\FakePaymentGateway;
 use App\Mail\OrderConfirmationEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Facades\OrderConfirmationNumber;
 use App\OrderConfirmationNumberGenerator;
 use Illuminate\Foundation\Testing\WithFaker;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PurchaseTicketsTest extends TestCase
@@ -55,7 +54,7 @@ class PurchaseTicketsTest extends TestCase
         OrderConfirmationNumber::shouldReceive('generate')->andReturn('ORDERCONFIRMATION1234');
         TicketCode::shouldReceive('generateFor')->andReturn('TICKETCODE1', 'TICKETCODE2', 'TICKETCODE3');
                 
-        $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250])->addTickets(3);
+        $concert = ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 3]);
 
         // Act
         // Purchase concert tickets
@@ -97,7 +96,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function cannot_purchase_tickets_to_an_unpublished_concert()
     {
-        $concert = factory(Concert::class)->states('unpublished')->create()->addTickets(3);
+        $concert = factory(Concert::class)->states('unpublished')->create(['ticket_quantity' => 3]);
         
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -113,7 +112,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function an_order_is_not_created_if_payment_fails()
     {
-        $concert = factory(Concert::class)->state('published')->create(['ticket_price' => 3250])->addTickets(3);
+        $concert = ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 3]);
 
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -129,7 +128,7 @@ class PurchaseTicketsTest extends TestCase
     /** @test */
     function cannot_purchase_more_tickets_than_remain()
     {
-        $concert = factory(Concert::class)->state('published')->create()->addTickets(50);
+        $concert = ConcertFactory::createPublished(['ticket_price' => 3250, 'ticket_quantity' => 50]);
         
         $response = $this->orderTickets($concert, [
             'email' => 'john@example.com',
@@ -147,10 +146,8 @@ class PurchaseTicketsTest extends TestCase
     function cannot_purchase_tickets_another_customer_is_already_trying_to_purchase()
     {
         $this->withoutExceptionHandling();
-        
-        $concert = factory(Concert::class)->state('published')->create([
-            'ticket_price' => 1200
-        ])->addTickets(3);
+
+        $concert = ConcertFactory::createPublished(['ticket_price' => 1200, 'ticket_quantity' => 3]);;
 
         $this->paymentGateway->beforeFirstCharge(function ($paymentGateway) use($concert) {
             $responseB = $this->orderTickets($concert, [
