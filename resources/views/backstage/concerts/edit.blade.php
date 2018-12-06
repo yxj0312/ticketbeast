@@ -23,7 +23,7 @@
         <h1 class="text-lg">Edit concert</h1>
     </div>
 </div>
-<form class="bg-soft p-xs-y-5" action="{{-- route('backstage.concerts.update', $concert) --}}" method="POST">
+<form class="bg-soft p-xs-y-5" action="{{ route('backstage.concerts.update', $concert) }}" method="POST">
     {{ csrf_field() }} {{ method_field('PATCH') }} @if ($errors->any())
     <div class="container m-xs-b-4">
         <div class="alert alert-danger">
@@ -178,7 +178,7 @@
                                 <div class="col col-md-6">
                                     <div class="form-group {{ $errors->first('ticket_quantity', 'has-error') }}">
                                         <label class="form-label">Ticket Quantity</label>
-                                        <input name="ticket_quantity" class="form-control" placeholder="250" value="{{ old('ticket_quantity', $concert->tickets()->count()) }}">
+                                        <input name="ticket_quantity" class="form-control" placeholder="250" value="{{ old('ticket_quantity', $concert->ticket_quantity) }}">
                                     </div>
                                 </div>
                             </div>
