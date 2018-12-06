@@ -102,3 +102,51 @@ and don't forget to use composer dump-autoload
 # Why not use Mailtrap to test mails (Chapter 14 Ep 1 - Using a Fake to Intercept Email) ?
 
 - It makes feature tests depending on network calls to some externe servers, and that's something we try to aviod.
+
+# Three options to publish the concert drafts (Chapter 20 Ep 1)
+## Option 1: POST /concerts/{id}/publish
+```
+class ConcertsController
+{
+    // ...
+}
+``` 
+Drawback: 
+
+not restful
+
+## Option 2: PATCH to /concerts/{id}
+
+use update method
+```
+class ConcertsController
+{
+    public function update($id) {
+        // ...
+
+        if (request('published')) {
+            $concert->publish();
+        }
+    }
+}
+```
+Drawback: 
+
+in the user interface, the act of editing the concert's details is disagreed the act of publishing a concert. when u click publish button, we are not passing to all the other information of updating(title, description...), all we try to say,  is to publish the concert. which also means, u need to check and validtion the inputs again, when u publish.
+
+## Option 3: POST to /published-concerts
+
+use create or store method of restful
+```
+class ConcertsController
+{
+    public function store()
+    {
+        $concert = Concert::find(request('concert_id'));
+
+        $concert->publish();
+
+        return redirect;
+    }
+}
+```
