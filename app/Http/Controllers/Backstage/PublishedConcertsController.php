@@ -17,6 +17,7 @@ class PublishedConcertsController extends Controller
         }
 
         $concert->publish();
+
         return redirect()->route('backstage.concerts.index');
     }
 }
