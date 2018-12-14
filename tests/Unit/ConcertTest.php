@@ -106,7 +106,7 @@ class ConcertTest extends TestCase
         $concert->tickets()->saveMany(factory(Ticket::class, 2)->create(['order_id' => null]));
         $this->assertEquals(5, $concert->totalTickets());
     }
-
+    
     /** @test */
     function calculating_the_percentage_of_tickets_sold()
     {
@@ -116,7 +116,6 @@ class ConcertTest extends TestCase
         // $this->assertEquals(0.285714286, $concert->percentSoldOut(), '', 0.00001);
         $this->assertEquals(28.57, $concert->percentSoldOut());
     }
-
 
     /** @test */
     function trying_to_reserve_more_tickets_than_remain_throws_an_exception()
@@ -182,4 +181,6 @@ class ConcertTest extends TestCase
 
         $this->fail("Reserving tickets succeeded even though the tickets were already reserved.");
     }
+
+
 }
