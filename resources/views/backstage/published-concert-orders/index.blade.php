@@ -1,5 +1,4 @@
-@extends('layouts.backstage')
-
+@extends('layouts.backstage') 
 @section('backstageContent')
 <div class="bg-light p-xs-y-4 border-b">
     <div class="container">
@@ -19,6 +18,7 @@
         </div>
     </div>
 </div>
+
 <div class="bg-soft p-xs-y-5">
     <div class="container m-xs-b-4">
         <div class="m-xs-b-6">
@@ -65,6 +65,7 @@
                 <div class="text-center">
                     No orders yet.
                 </div>
+                @else
                 <table class="table">
                     <thead>
                         <tr>
@@ -87,6 +88,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
     </div>
