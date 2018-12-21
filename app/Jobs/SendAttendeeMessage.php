@@ -33,8 +33,15 @@ class SendAttendeeMessage implements ShouldQueue
      */
     public function handle()
     {
-        $this->attendeeMessage->recipients()->each(function ($recipient) {
-            Mail::to($recipient)->send(new AttendeeMessageEmail($this->attendeeMessage));
+        // Image we have 2000 email adressse, then we are looping over 2000 HTTP requests
+        // better way: queue up instead of send
+        // One of the benefits: this job fails, it will going to a fail job table as long as we set that up
+        // for example, 7 of 2000 failed, we will get the 7 failed ones in the table somewhere and we can retry these ones easily.
+
+        $this->attendeeMessage->withChunkedRecipients(20, function ($recipients) {
+            $recipients->each(function ($recipient) {
+                Mail::to($recipient)->queue(new AttendeeMessageEmail($this->attendeeMessage));
+            });
         });
     }
 }
