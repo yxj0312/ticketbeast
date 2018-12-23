@@ -46,7 +46,7 @@ class SendAttendeeMessageTest extends TestCase
             return $mail->hasTo('taylor@example.com')
                 && $mail->attendeeMessage->is($message);
         });
-        Mail::assertNotSent(AttendeeMessageEmail::class, function ($mail) {
+        Mail::assertNotQueued(AttendeeMessageEmail::class, function ($mail) {
             return $mail->hasTo('jane@example.com');
         });
     }
