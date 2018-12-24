@@ -1652,6 +1652,12 @@ a:focus,
   -ms-flex-negative: 0;
       flex-shrink: 0;
 }
+img {
+  vertical-align: middle;
+}
+.img-fit {
+  max-width: 100%;
+}
 .text-xjumbo {
   font-size: 2.5rem !important;
 }
