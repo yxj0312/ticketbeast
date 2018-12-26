@@ -24,6 +24,7 @@ class ConcertsController extends Controller
 
     public function store()
     {
+        // dd(request('poster_image')->store('posters', 's3'));
         $this->validate(request(), [
             'title' => ['required'],
             'date' => ['required', 'date'],
@@ -52,6 +53,7 @@ class ConcertsController extends Controller
             'zip' => request('zip'),
             'ticket_price' => request('ticket_price') * 100,
             'ticket_quantity' => (int) request('ticket_quantity'),
+            'poster_image_path' => request('poster_image')->store('posters', 's3'),
         ]);
 
         return redirect()->route('backstage.concerts.index');
