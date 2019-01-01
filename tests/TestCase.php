@@ -27,10 +27,6 @@ abstract class TestCase extends BaseTestCase
             return $this->original->getData()[$key];
         });
 
-        TestResponse::macro('assertViewIs', function ($name) {
-            Assert::assertEquals($name, $this->original->name());
-        });
-
         EloquentCollection::macro('assertContains', function ($value) {
             Assert::assertTrue($this->contains($value), "Failed asserting that the collection contains the specified value.");
         });
