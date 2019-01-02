@@ -75,3 +75,8 @@ $factory->define(App\Order::class, function (Faker $faker) {
         'card_last_four' => '1234',
     ];
 });
+
+$factory->define(App\Invitation::class, function (Faker $faker) {
+    return [
+    ];
+});
