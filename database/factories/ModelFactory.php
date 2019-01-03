@@ -78,5 +78,6 @@ $factory->define(App\Order::class, function (Faker $faker) {
 
 $factory->define(App\Invitation::class, function (Faker $faker) {
     return [
+        
     ];
 });
