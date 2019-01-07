@@ -2,8 +2,8 @@
 
 namespace App\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use App\InvitationCodeGenerator;
+use Illuminate\Support\Facades\Facade;
 
 class InvitationCode extends Facade
 {
