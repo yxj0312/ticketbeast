@@ -6,7 +6,6 @@ use App\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Invitation extends Model
 {
     protected $guarded = [];
