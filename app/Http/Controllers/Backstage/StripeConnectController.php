@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StripeConnectController extends Controller
@@ -17,7 +16,7 @@ class StripeConnectController extends Controller
                 'client_id' => config('services.stripe.client_id'),
             ]),
         ]);
-        
+
         return redirect($url);
     }
 }
