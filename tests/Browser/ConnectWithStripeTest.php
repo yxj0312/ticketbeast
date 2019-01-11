@@ -9,7 +9,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ConnectWithStripeTest extends DuskTestCase
 {
-    /** @text */
+    use DatabaseMigrations;
+
+    /** @test */
     public function connecting_a_stripe_account_successfully()
     {
         $user = factory(User::class)->create([
@@ -17,7 +19,7 @@ class ConnectWithStripeTest extends DuskTestCase
             'stripe_access_token' => null,
         ]);
 
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                     ->visit('/backstage/stripe-connect/authorize')
                     ->assertUrlIs('https://connect.stripe.com/oauth/authorize')
