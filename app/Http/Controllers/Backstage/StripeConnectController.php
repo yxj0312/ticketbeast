@@ -19,4 +19,9 @@ class StripeConnectController extends Controller
 
         return redirect($url);
     }
+
+    public function redirect()
+    {
+        return redirect()->route('backstage.concerts.index');
+    }
 }
