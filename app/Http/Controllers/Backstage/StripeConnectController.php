@@ -24,10 +24,10 @@ class StripeConnectController extends Controller
 
     public function redirect()
     {
-        // convert to this response to json, that we can inspect easily, 
+        // convert to this response to json, that we can inspect easily,
         // because otherwise it comes back as a Zttp response instance
         // to json give us a raw data.
-        $accessTokenResponse = Zttp::asFormParams()->post('https://connect.stripe.com/oauth/token',[
+        $accessTokenResponse = Zttp::asFormParams()->post('https://connect.stripe.com/oauth/token', [
             'grant_type' => 'authorization_code',
             'code' => request('code'),
             'client_secret' => config('services.stripe.secret'),
