@@ -19,7 +19,7 @@ class ForceStripeAccount
         if (Auth::user()->stripe_account_id === null) {
             return redirect()->route('backstage.stripe-connect.connect');
         }
-        
+
         // return $next($request);
     }
 }
