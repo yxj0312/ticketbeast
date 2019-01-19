@@ -31,10 +31,11 @@ trait PaymentGatewayContractTests
         // vendor\bin\phpunit tests\Unit\Billing\FakePaymentGatewayTest.php --filter=details
         $paymentGateway = $this->getPaymentGateway();
 
-        $charge = $paymentGateway->charge(2500, $paymentGateway->getValidTestToken($paymentGateway::TEST_CARD_NUMBER));
+        $charge = $paymentGateway->charge(2500, $paymentGateway->getValidTestToken($paymentGateway::TEST_CARD_NUMBER), 'test_acct_1234');
 
         $this->assertEquals(substr($paymentGateway::TEST_CARD_NUMBER, -4), $charge->cardLastFour());    
         $this->assertEquals(2500, $charge->amount());    
+        $this->assertEquals('test_acct_1234', $charge->destination());    
     }
 
     /** @test */
