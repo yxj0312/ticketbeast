@@ -47,7 +47,7 @@ class FakePaymentGateway implements PaymentGateway
         return $this->charges[] = new Charge([
             'amount' => $amount,
             'card_last_four' => substr($this->tokens[$token], -4),
-            'destination' => $destinationAccountId
+            'destination' => $destinationAccountId,
         ]);
     }
 
@@ -66,7 +66,6 @@ class FakePaymentGateway implements PaymentGateway
 
     public function totalChargesFor($accountId)
     {
-
         return $this->charges->filter(function ($charge) use ($accountId) {
             return $charge->destination() === $accountId;
         })->map->amount()->sum();
