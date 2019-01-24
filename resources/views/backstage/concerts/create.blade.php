@@ -7,7 +7,8 @@
     </div>
 </div>
 <form class="bg-soft p-xs-y-5" action="/backstage/concerts" method="POST" enctype="multipart/form-data">
-    {{ csrf_field() }} @if ($errors->any())
+    {{ csrf_field() }} 
+    @if ($errors->any())
     <div class="container m-xs-b-4">
         <div class="alert alert-danger">
             <h2 class="text-base text-danger wt-bold m-xs-b-2">
