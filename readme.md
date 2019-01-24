@@ -150,3 +150,15 @@ class ConcertsController
     }
 }
 ```
+
+## What is Strip?
+
+Stripe helps you create any type of payments flow—from e-commerce to recurring billing and everything in between.
+
+### [Accept payments](https://stripe.com/docs#accept-payments)
+Stripe enables you to accept payments in minutes. Collect your customers' payment information easily and securely on web or mobile, and create charges server-side in 135+ currencies. Users in Germany can accept Visa Mastercard American Express credit and debit cards.
+
+Stripe also supports a range of additional payment methods, including 3D Secure, ACH debits, Apple Pay, and Google Pay.
+
+### [Manage recurring payments](https://stripe.com/docs#manage-recurring-payments)
+Stripe makes recurring and subscription-based billing easy. Explore the quickstart to get going quickly and subscribe your first customer to a plan.
