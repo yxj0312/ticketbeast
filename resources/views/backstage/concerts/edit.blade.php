@@ -7,7 +7,9 @@
     </div>
 </div>
 <form class="bg-soft p-xs-y-5" action="{{ route('backstage.concerts.update', $concert) }}" method="POST">
-    {{ csrf_field() }} {{ method_field('PATCH') }} @if ($errors->any())
+    {{ csrf_field() }} 
+    {{ method_field('PATCH') }}
+    @if ($errors->any())
     <div class="container m-xs-b-4">
         <div class="alert alert-danger">
             <h2 class="text-base text-danger wt-bold m-xs-b-2">
