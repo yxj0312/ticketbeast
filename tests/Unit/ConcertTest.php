@@ -8,14 +8,13 @@ use App\Concert;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\ConcertFactory;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Exceptions\NotEnoughTicketsException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ConcertTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test */
     public function can_get_formatted_date()
     {

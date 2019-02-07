@@ -4,11 +4,8 @@ namespace Tests\Unit;
 
 use App\Order;
 use App\Ticket;
-use App\Concert;
 use Tests\TestCase;
-use App\Reservation;
 use App\Billing\Charge;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

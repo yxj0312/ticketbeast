@@ -4,11 +4,9 @@ namespace Tests\Unit;
 
 use App\Order;
 use App\Ticket;
-use App\Concert;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Facades\TicketCode;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TicketTest extends TestCase
