@@ -25,3 +25,10 @@
 2. [Chapter 2 Ep 4 Faking the Payment Gateway](https://course.testdrivenlaravel.com/lessons/module-2/faking-the-payment-gateway?autoplay=true#12)
 
    - [commit](https://github.com/yxj0312/ticketbeast/commit/16e9745ff17f38f3ba89ab804e579301fa423b71)
+
+   - Variable of paymentGateway gonna be:
+       
+       I. Real paymentGateway: Test depends being on the stripe, must online.
+
+       II. Fake paymentGateway: works locally. but behavior like stripe Gateway
+
