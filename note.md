@@ -31,4 +31,61 @@
        I. Real paymentGateway: Test depends being on the stripe, must online.
 
        II. Fake paymentGateway: works locally. but behavior like stripe Gateway
+    
+    - [Structure of FakePaymentGateway](https://github.com/yxj0312/ticketbeast/blob/16e9745ff17f38f3ba89ab804e579301fa423b71/app/Billing/FakePaymentGateway.php)
+
+        I. [Charges_with_a_valid_payment_token_are_successful](https://github.com/yxj0312/ticketbeast/blob/16e9745ff17f38f3ba89ab804e579301fa423b71/tests/Unit/Billing/FakePaymentGatewayTest.php)
+        ```php
+            /** @test */
+            function charges_with_a_valid_payment_token_are_successful()
+            {
+                $paymentGateway = new FakePaymentGateway;
+                
+                $paymentGateway->charge(2500, $paymentGateway->getValidTestToken());
+                
+                $this->assertEquals(2500, $paymentGateway->totalCharges());
+            }        
+        ```
+        II. 'Charges' as a __construct:
+
+        ```php
+            private $charges;
+        
+            public function __construct()
+            {
+                $this->charges = collect();   
+            }
+        ```
+        III. 'Charge' method: first just save all the amount into charges (check the validation of the token not yet)
+
+        ```php
+            public function charge($amount, $token)
+            {
+                $this->charges[] = $amount;
+            }
+        ```
+
+    - PaymentGateway interface
+
+        - Bind to the container, avoid 'BindingResolutionException'
+
+        in customer_can_purchase_concert_tickets()
+        ```php
+            // Whenever the system needs a paymentgateway interface, supply our $paymentGateway here.
+            $this->app->instance(PaymentGateway::class, $paymentGateway);
+        ```
+
+        - Where can we get the 'amount' from?
+        in store method of ConcertOrdersController
+        ```php
+            $concert = Concert::find($concertId);
+            $ticketQuantity = request('ticket_quantity');
+            $amount = $ticketQuantity * $concert->ticket_price;
+        ```
+
+        - Where can we get the token?
+        in store method of ConcertOrdersController
+        ```php
+            $token = request('payment_token')
+        ```
 
