@@ -89,3 +89,10 @@
             $token = request('payment_token')
         ```
 
+3.  Chapter 2 Ep 5 Adding Tickets to Orders
+    - Create order model
+    - Save concert_id and customer email to it
+    - Create ticket model
+    - In the ConcertsOrderController store the orders'tikets with request('ticket_quanitity')
+
+
