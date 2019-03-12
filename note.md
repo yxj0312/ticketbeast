@@ -95,4 +95,44 @@
     - Create ticket model
     - In the ConcertsOrderController store the orders'tikets with request('ticket_quanitity')
 
+4. [Chapter 2 Ep 9 Handling Failed Charges](https://course.testdrivenlaravel.com/lessons/module-2/handling-failed-charges#17)
+
+    - [Commit](https://github.com/yxj0312/ticketbeast/commit/f5630d9085ba7cd65acc2539e5bb8fe4ef7d0b40)
+
+    - When there is a invalid payment token, throw an exception called PaymentFailedException, and return 422 statuts
+        
+        - Unit Test
+        ```php
+            /** @test */
+            function charges_with_an_invalid_payment_token_fail()
+            {
+                try {
+                    $paymentGateway = new FakePaymentGateway;
+                    $paymentGateway->charge(2500, 'invalid-payment-token');
+                } catch(PaymentFailedException $e) {
+                    return;
+                }
+                $this->fail();
+            }
+        ``` 
+
+        - Method
+
+        ```php
+            public function charge($amount, $token)
+            {
+                if ($token !== $this->getValidTestToken()) {
+                    throw new PaymentFailedException;
+                }
+                $this->charges[] = $amount;
+            }
+            
+
+            <?php
+            namespace App\Billing;
+            
+            Class PaymentFailedException extends \RuntimeException
+            {
+            }
+        ```
 
