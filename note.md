@@ -136,3 +136,23 @@
             }
         ```
 
+    5. [Chapter 3 Ep 5 Cancelling Failed Orders](https://course.testdrivenlaravel.com/lessons/module-3/cancelling-failed-orders#23)
+
+        - [Commit](https://github.com/yxj0312/ticketbeast/commit/dc27200fdb73898fdb3ce966ed152a8d96c3bef9)
+
+        - Add cancel() to order
+        ```php
+            catch (PaymentFailedException $e) {
+                $order->cancel();
+                return response()-> json([], 422);
+            }
+
+
+            public function cancel()
+            {
+                foreach ($this->tickets as $ticket) {
+                    $ticket->update(['order_id' => null]);
+                }
+                $this->delete();
+            }
+        ```
