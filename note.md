@@ -156,3 +156,60 @@
                 $this->delete();
             }
         ```
+    6. [Chapter 4 Ep 3 This Design Sucks](https://course.testdrivenlaravel.com/lessons/module-4/this-design-sucks#28)
+
+        -  Talk about three issues with our above existing design and why they are worth addressing.
+            
+            I. Some sneaky duplications
+            ```php 
+                i.e. 
+                ConcertOrdersController.php
+                 try {
+                    ....
+                    $this->paymentGateway->charge(request('ticket_quantity') * $concert->ticket_price, request('payment_token'));
+                    return response()->json($order, 201);
+                } catch (PaymentFailedException $e) {
+                    ...
+                }
+                
+                vs.
+                Order.php - toArray()
+                 return [
+                    'email' => $this->email,
+                    'ticket_quantity' => $this->ticketQuantity(),
+                    'amount' =>  $this->ticketQuantity() * $this->concert->ticket_price,
+                ];
+
+            ```
+
+            II. Computing this above amount on the flyer, try to figure out what is the amount that customer paid for the perticular order
+
+            > i.e I buy 4 tickets with $20 each, which cost me 4 * $20 = $80.
+            > Two weeks later, concert prmoter decides to increase the price to $25.
+            > If I go back to look my order, it gonna say that I paid 4 * $25 = $100.
+            > Eventhrough my credit card statment only says I paid $80.
+
+            III. We are creating the orders up and saving them in genearl before we even charge the customer.
+
+            ```php
+                try {
+                    $order = $concert->orderTickets(request('email'), request('ticket_quantity'));
+                    $this->paymentGateway->charge(request('ticket_quantity') * $concert->ticket_price, request('payment_token'));
+                    return response()->json($order, 201);
+                } catch (PaymentFailedException $e) {
+                    $order->cancel();
+                    return response()-> json([], 422);
+                } catch (NotEnoughTicketsException $e) {
+                    return response()->json([], 422);
+                }
+            ```
+            And then double in back to cancel the order, if the payment fails
+
+            Idea:
+
+            > 1. Find some tickets (when we find them, we assign them to a ticket variable)
+            > 2. Charge the customer for the tickets
+            > 3. Create an order for those tickets
+
+            
+
