@@ -211,5 +211,15 @@
         > 2. Charge the customer for the tickets
         > 3. Create an order for those tickets
 
+7. [Chapter 5 A Surgical Refactoring](https://course.testdrivenlaravel.com/lessons/module-5/persisting-the-order-amount#29)
+
+    I. Persisting the Order Amount
+    II. Removing the Need to Cancel Orders
+    III. Preparing for Extraction
+    IV. Extracting a Named Constructor
+    V. Precomputing the Order Amount
+    VI. Uncovering a New Domain Object
+    VII. You Might Not Need a Mocking Framework
+
             
 
