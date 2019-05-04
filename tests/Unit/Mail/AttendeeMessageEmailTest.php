@@ -5,7 +5,6 @@ namespace Tests\Unit\Mail;
 use Tests\TestCase;
 use App\AttendeeMessage;
 use App\Mail\AttendeeMessageEmail;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AttendeeMessageEmailTest extends TestCase

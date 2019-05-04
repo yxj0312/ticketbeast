@@ -9,7 +9,6 @@ use App\AttendeeMessage;
 use App\Jobs\SendAttendeeMessage;
 use App\Mail\AttendeeMessageEmail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SendAttendeeMessageTest extends TestCase
