@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Order;
 use App\Ticket;
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Facades\TicketCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
