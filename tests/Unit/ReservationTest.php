@@ -7,7 +7,6 @@ use App\Concert;
 use Tests\TestCase;
 use App\Reservation;
 use App\Billing\FakePaymentGateway;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReservationTest extends TestCase

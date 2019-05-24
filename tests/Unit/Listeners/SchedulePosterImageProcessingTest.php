@@ -7,7 +7,6 @@ use App\ConcertFactory;
 use App\Events\ConcertAdded;
 use App\Jobs\ProcessPosterImage;
 use Illuminate\Support\Facades\Queue;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SchedulePosterImageProcessingTest extends TestCase

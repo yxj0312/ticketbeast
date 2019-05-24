@@ -6,7 +6,6 @@ use App\User;
 use Tests\TestCase;
 use App\Invitation;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcceptInvitationTest extends TestCase

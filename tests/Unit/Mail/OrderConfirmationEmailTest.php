@@ -5,8 +5,6 @@ namespace Tests\Unit\Mail;
 use App\Order;
 use Tests\TestCase;
 use App\Mail\OrderConfirmationEmail;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderConfirmationEmailTest extends TestCase
 {
