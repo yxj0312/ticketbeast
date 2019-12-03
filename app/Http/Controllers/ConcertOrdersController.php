@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Concert;
-use Illuminate\Http\Request;
-use App\Billing\PaymentGateway;
-use App\Mail\OrderConfirmationEmail;
-use Illuminate\Support\Facades\Mail;
 use App\Billing\PaymentFailedException;
+use App\Billing\PaymentGateway;
+use App\Concert;
 use App\Exceptions\NotEnoughTicketsException;
+use App\Mail\OrderConfirmationEmail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ConcertOrdersController extends Controller
 {

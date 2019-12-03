@@ -2,9 +2,9 @@
 
 namespace App;
 
+use App\Exceptions\NotEnoughTicketsException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use App\Exceptions\NotEnoughTicketsException;
 
 class Concert extends Model
 {

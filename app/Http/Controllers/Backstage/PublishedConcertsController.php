@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PublishedConcertsController extends Controller
