@@ -1,8 +1,7 @@
 <?php
 
-use App\Concert;
-use Carbon\Carbon;
 use App\ConcertFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
