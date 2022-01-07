@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use App\Concert;
+use App\Events\ConcertAdded;
+use App\Http\Controllers\Controller;
 use App\NullFile;
 use Carbon\Carbon;
-use App\Events\ConcertAdded;
-use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ConcertsController extends Controller
 {
