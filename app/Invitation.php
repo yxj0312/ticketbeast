@@ -3,8 +3,8 @@
 namespace App;
 
 use App\Mail\InvitationEmail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Invitation extends Model
 {
