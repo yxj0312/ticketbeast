@@ -26,9 +26,9 @@ Route::get('/invitations/{code}', 'InvitationsController@show')->name('invitatio
 
 Route::group(
     [
-    'middleware' => 'auth',
-    'prefix' => 'backstage',
-    'namespace' => 'Backstage',
+        'middleware' => 'auth',
+        'prefix' => 'backstage',
+        'namespace' => 'Backstage',
     ],
     function () {
         Route::group(['middleware' => ForceStripeAccount::class], function () {
