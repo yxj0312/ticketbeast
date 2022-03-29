@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Invitation;
 use App\Http\Controllers\Controller;
+use App\Invitation;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller

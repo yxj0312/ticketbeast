@@ -1,7 +1,7 @@
 <?php
 
-use App\Invitation;
 use App\Facades\InvitationCode;
+use App\Invitation;
 
 /*
 |--------------------------------------------------------------------------
