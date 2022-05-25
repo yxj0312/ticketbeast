@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use Zttp\Zttp;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Zttp\Zttp;
 
 class StripeConnectController extends Controller
 {
