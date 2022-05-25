@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use App\Facades\TicketCode;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model

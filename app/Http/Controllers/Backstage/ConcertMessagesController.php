@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use App\Jobs\SendAttendeeMessage;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendAttendeeMessage;
 use Illuminate\Support\Facades\Auth;
 
 class ConcertMessagesController extends Controller
