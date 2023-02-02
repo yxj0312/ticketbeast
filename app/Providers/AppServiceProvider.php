@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\TicketCodeGenerator;
 use App\Billing\PaymentGateway;
-use App\InvitationCodeGenerator;
-use App\HashidsTicketCodeGenerator;
 use App\Billing\StripePaymentGateway;
-use Illuminate\Support\ServiceProvider;
+use App\HashidsTicketCodeGenerator;
+use App\InvitationCodeGenerator;
 use App\OrderConfirmationNumberGenerator;
 use App\RandomOrderConfirmationNumberGenerator;
+use App\TicketCodeGenerator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
